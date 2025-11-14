@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Cart;
 
 use Illuminate\Http\Request;
 
-class CartController extends Controller
+class CartController
 {
     /**
      * Display a listing of the resource.
@@ -27,8 +28,22 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+    'user_id' => 'required|integer|exists:users,id',
+    'session_id' => 'nullable|string|max:255',
+    'total' => 'required|numeric|min:0',
+]);
+$result=Cart::create($validate);
+        if($result){
+
+return response()->json(['message'=>'cart is created successfully'],201);
+        }
+        else{
+            return response()->json(['message' => 'cart creation filed'],404);
+        }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -51,7 +66,11 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+    'user_id' => 'nullable|integer|exists:users,id',
+    'session_id' => 'nullable|string|max:255',
+    'total' => 'nullable|numeric|min:0',
+]);
     }
 
     /**
@@ -59,6 +78,16 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         $result=Cart::where('id',$id)->firstOrfail();
+        if($result){
+            $result->delete();
+return response()->json(['message'=>'cart is deleted successfully'],200);
+        }
+        else{
+            return response()->json(['message' => 'cart not found'],404);
+        }
     }
 }
+
+
+

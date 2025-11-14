@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\ProductImage;
 
 use Illuminate\Http\Request;
 
@@ -27,7 +28,19 @@ class ProductImageController
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+    'product_id' => 'required|integer|exists:products,id',
+    'image_path' => 'required|string|max:255',
+    'alt_text'   => 'nullable|string|max:255',
+]);
+$result=ProductImage::create($validate);
+        if($result){
+
+return response()->json(['message'=>'productimage is created successfully'],201);
+        }
+        else{
+            return response()->json(['message' => 'productimage creation filed'],404);
+        }
     }
 
     /**
@@ -51,7 +64,11 @@ class ProductImageController
      */
     public function update(Request $request, string $id)
     {
-        //
+         $request->validate([
+    'product_id' => 'nullable|integer|exists:products,id',
+    'image_path' => 'nullable|string|max:255',
+    'alt_text'   => 'nullable|string|max:255',
+]);
     }
 
     /**
@@ -59,6 +76,13 @@ class ProductImageController
      */
     public function destroy(string $id)
     {
-        //
+        $result=ProductImage::where('id',$id)->firstOrfail();
+        if($result){
+            $result->delete();
+return response()->json(['message'=>'productimage is deleted successfully'],200);
+        }
+        else{
+            return response()->json(['message' => 'productimage not found'],404);
+        }
     }
 }

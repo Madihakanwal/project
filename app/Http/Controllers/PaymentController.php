@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Payment;
 
 use Illuminate\Http\Request;
 
@@ -27,7 +28,21 @@ class PaymentController
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+    'order_id'        => 'required|integer|exists:orders,id',
+    'payment_method'  => 'nullable|integer',
+    'transaction_id'  => 'required|integer|min:1',
+    'amount'          => 'required|numeric|min:0',
+    'status'          => 'required|boolean',
+]);
+$result=Payment::create($validate);
+        if($result){
+
+return response()->json(['message'=>'payment is created successfully'],201);
+        }
+        else{
+            return response()->json(['message' => 'payment creation filed'],404);
+        }
     }
 
     /**
@@ -51,7 +66,13 @@ class PaymentController
      */
     public function update(Request $request, string $id)
     {
-        //
+         $request->validate([
+    'order_id'        => 'nullable|integer|exists:orders,id',
+    'payment_method'  => 'nullable|integer',
+    'transaction_id'  => 'nullable|integer|min:1',
+    'amount'          => 'nullable|numeric|min:0',
+    'status'          => 'nullable|boolean',
+]);
     }
 
     /**
@@ -59,6 +80,13 @@ class PaymentController
      */
     public function destroy(string $id)
     {
-        //
+        $result=Payment::where('id',$id)->firstOrfail();
+        if($result){
+            $result->delete();
+return response()->json(['message'=>'payment is deleted successfully'],200);
+        }
+        else{
+            return response()->json(['message' => 'payment not found'],404);
+        }
     }
 }

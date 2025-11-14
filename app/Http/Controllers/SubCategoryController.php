@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\SubCategory;
 
 use Illuminate\Http\Request;
 
@@ -27,13 +28,28 @@ class SubCategoryController
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+    'category_id' => 'required|integer|exists:categories,id',
+    'name'        => 'required|string|max:255',
+    'slug'        => 'required|string|max:255|unique:your_table_name,slug',
+    'description' => 'nullable|string',
+    'status'      => 'required|boolean',
+    'image'       => 'nullable|string|max:255',
+]);
+$result=SubCategory::create($validate);
+        if($result){
+
+return response()->json(['message'=>'subcategory is created successfully'],201);
+        }
+        else{
+            return response()->json(['message' => 'subcategoey creation filed'],404);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
         //
     }
@@ -41,7 +57,7 @@ class SubCategoryController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $slug)
     {
         //
     }
@@ -49,16 +65,30 @@ class SubCategoryController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $slug)
     {
-        //
+         $request->validate([
+    'category_id' => 'nullable|integer|exists:categories,id',
+    'name'        => 'nullable|string|max:255',
+    'slug'        => 'nullable|string|max:255|unique:your_table_name,slug',
+    'description' => 'nullable|string',
+    'status'      => 'boolean',
+    'image'       => 'nullable|string|max:255',
+]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $slug)
     {
-        //
+        $result=SubCategory::where('slug',$slug)->firstOrfail();
+        if($result){
+            $result->delete();
+return response()->json(['message'=>'subcategory is deleted successfully'],200);
+        }
+        else{
+            return response()->json(['message' => 'subcategory not found'],404);
+        }
     }
 }
