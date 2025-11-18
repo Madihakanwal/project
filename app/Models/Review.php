@@ -11,6 +11,16 @@ class Review extends Model
         'product_id',
         'rating',
         'comment',
-        'status'
+        'status', // approved/pending/hidden
+    ];
+
+    protected $casts = [
+        'user_id'     => 'integer',
+        'product_id'  => 'integer',
+        'rating'      => 'integer', // e.g., 1 to 5 stars
+        'comment'     => 'string',
+        'status'      => 'boolean', // true = approved, false = pending/hidden
+        'created_at'  => 'datetime',
+        'updated_at'  => 'datetime',
     ];
 }
