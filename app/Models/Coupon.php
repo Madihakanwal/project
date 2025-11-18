@@ -8,12 +8,28 @@ class Coupon extends Model
 {
     protected $fillable = [
         'code',
-        'discount-type',
+        'discount_type',
         'discount_value',
         'start_date',
         'end_date',
         'min_order_amount',
         'max_uses',
         'status'
+    ];
+
+    protected $casts = [
+        'code'             => 'string',
+        'discount_type'    => 'string',   // percentage / fixed
+        'discount_value'   => 'decimal:2',
+
+        'start_date'       => 'datetime',
+        'end_date'         => 'datetime',
+
+        'min_order_amount' => 'decimal:2',
+        'max_uses'         => 'integer',
+
+        'status'           => 'boolean',  // active/inactive
+        'created_at'       => 'datetime',
+        'updated_at'       => 'datetime',
     ];
 }
