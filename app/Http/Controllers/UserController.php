@@ -5,7 +5,7 @@ use App\Models\UseModel;
 
 use Illuminate\Http\Request;
 
-class UseController
+class UserController
 {
     /**
      * Display a listing of the resource.

@@ -28,7 +28,7 @@ class WishListController
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validate= $request->validate([
     'user_id'    => 'required|integer|exists:users,id',
     'product_id' => 'required|integer|exists:products,id',
 ]);

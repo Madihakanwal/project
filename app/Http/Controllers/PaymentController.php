@@ -28,7 +28,7 @@ class PaymentController
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validate= $request->validate([
     'order_id'        => 'required|integer|exists:orders,id',
     'payment_method'  => 'nullable|integer',
     'transaction_id'  => 'required|integer|min:1',
@@ -66,7 +66,7 @@ return response()->json(['message'=>'payment is created successfully'],201);
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
+        $validate= $request->validate([
     'order_id'        => 'nullable|integer|exists:orders,id',
     'payment_method'  => 'nullable|integer',
     'transaction_id'  => 'nullable|integer|min:1',

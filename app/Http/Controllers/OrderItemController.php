@@ -28,7 +28,7 @@ class OrderItemController
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validate= $request->validate([
     'order_id'   => 'required|integer|exists:orders,id',
     'product_id' => 'required|integer|exists:products,id',
     'variant_id' => 'nullable|integer|exists:variants,id',
@@ -67,7 +67,7 @@ return response()->json(['message'=>'orderitem is created successfully'],201);
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
+       $validate= $request->validate([
     'order_id'   => 'nullable|integer|exists:orders,id',
     'product_id' => 'nullable|integer|exists:products,id',
     'variant_id' => 'nullable|integer|exists:variants,id',

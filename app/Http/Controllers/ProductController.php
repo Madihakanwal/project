@@ -27,7 +27,7 @@ class ProductController
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
+       $validate = $request->validate([
 // validation rules
 'category_id' => 'required|exists:categories,id',
 'sub_category_id' => 'required|exists:sub_categories,id',
@@ -68,7 +68,7 @@ return response()->json(['message'=>'product is created successfully'],201);
         $product=Product::where('slug',$slug)->firstOrfail();
         if($product){
 
-return response()->json($Product);
+return response()->json($product);
         }
         else{
             return response()->json(['message' => 'product not found'],404);

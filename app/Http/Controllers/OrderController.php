@@ -28,7 +28,7 @@ class OrderController
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validate= $request->validate([
     'user_id'             => 'required|integer|exists:users,id',
     'order_number'        => 'required|integer|unique:your_table_name,order_number',
     'total_amount'        => 'required|numeric|min:0',

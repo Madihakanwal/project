@@ -65,7 +65,7 @@ class ProductVariantController
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
+       $validate= $request->validate([
             'product_id' => 'nullable|integer|exists:products,id',
             'attribute' => 'nullable|string|max:255',
             'value' => 'nullable|string|max:255',

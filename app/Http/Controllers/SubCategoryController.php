@@ -28,7 +28,7 @@ class SubCategoryController
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validate= $request->validate([
     'category_id' => 'required|integer|exists:categories,id',
     'name'        => 'required|string|max:255',
     'slug'        => 'required|string|max:255|unique:your_table_name,slug',
@@ -67,7 +67,7 @@ return response()->json(['message'=>'subcategory is created successfully'],201);
      */
     public function update(Request $request, string $slug)
     {
-         $request->validate([
+        $validate= $request->validate([
     'category_id' => 'nullable|integer|exists:categories,id',
     'name'        => 'nullable|string|max:255',
     'slug'        => 'nullable|string|max:255|unique:your_table_name,slug',

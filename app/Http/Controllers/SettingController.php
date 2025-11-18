@@ -27,7 +27,7 @@ class SettingController
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validate= $request->validate([
     'key'   => 'required|string|max:255|unique:your_table_name,key',
     'value' => 'nullable|string',
 ]);
@@ -62,7 +62,7 @@ return response()->json(['message'=>'setting is created successfully'],201);
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
+    $validate= $request->validate([
     'key'   => 'nullable|string|max:255|unique:your_table_name,key',
     'value' => 'nullable|string',
 ]);

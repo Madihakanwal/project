@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\ShippingAddress;
 class ShippingAddressController
 {
     /**
@@ -27,7 +27,7 @@ class ShippingAddressController
      */
     public function store(Request $request)
     {
-        $request->validate([
+     $validate= $request->validate([
     'user_id'     => 'required|integer|exists:users,id',
     'full_name'   => 'required|string|max:255',
     'phone'       => 'required|string|max:20',
@@ -70,7 +70,7 @@ return response()->json(['message'=>'shippingaddress is created successfully'],2
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
+        $validate= $request->validate([
     'user_id'     => 'nullable|integer|exists:users,id',
     'full_name'   => 'nullable|string|max:255',
     'phone'       => 'nullable|string|max:20',

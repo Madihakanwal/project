@@ -28,8 +28,8 @@ class CouponController
      */
     public function store(Request $request)
     {
-$request->validate([
-    'code'             => 'required|string|max:255|unique:your_table_name,code',
+ $validate= $request->validate([
+    'code'             => 'required|string|max:255|unique:coupons,code',
     'discount_type'    => 'required|string|in:percentage,fixed', // adjust options as needed
     'discount_value'   => 'required|numeric|min:0',
     'start_date'       => 'required|date',
@@ -70,8 +70,8 @@ return response()->json(['message'=>'coupon is created successfully'],201);
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-    'code'             => 'nullable|string|max:255|unique:your_table_name,code',
+       $validate= $request->validate([
+    'code'             => 'nullable|string|max:255|unique:coupons,code',
     'discount_type'    => 'nullable|string|in:percentage,fixed', // adjust options as needed
     'discount_value'   => 'nullable|numeric|min:0',
     'start_date'       => 'nullable|date',

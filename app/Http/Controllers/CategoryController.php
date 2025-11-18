@@ -28,20 +28,19 @@ class CategoryController
      */
     public function store(Request $request)
     {
-        $request->validate([
-    'name'        => 'required|string|max:255',
-    'slug'        => 'required|string|max:255|unique:your_table_name,slug',
-    'description' => 'nullable|string',
-    'status'      => 'required|boolean',
-    'image'       => 'nullable|string|max:255',
-]);
-$result=Category::create($validate);
-        if($result){
+        $validate = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:your_table_name,slug',
+            'description' => 'nullable|string',
+            'status' => 'required|boolean',
+            'image' => 'nullable|string|max:255',
+        ]);
+        $result = Category::create(attributes: $validate);
+        if ($result) {
 
-return response()->json(['message'=>'category is created successfully'],201);
-        }
-        else{
-            return response()->json(['message' => 'category creation filed'],404);
+            return response()->json(['message' => 'category is created successfully'], 201);
+        } else {
+            return response()->json(['message' => 'category creation filed'], 404);
         }
     }
 
@@ -67,13 +66,13 @@ return response()->json(['message'=>'category is created successfully'],201);
      */
     public function update(Request $request, string $slug)
     {
-        $request->validate([
-    'name'        => 'nullable|string|max:255',
-    'slug'        => 'nullable|string|max:255|unique:your_table_name,slug',
-    'description' => 'nullable|string',
-    'status'      => 'nullable|boolean',
-    'image'       => 'nullable|string|max:255',
-]);
+        $validate = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:your_table_name,slug',
+            'description' => 'nullable|string',
+            'status' => 'nullable|boolean',
+            'image' => 'nullable|string|max:255',
+        ]);
     }
 
     /**
@@ -81,13 +80,12 @@ return response()->json(['message'=>'category is created successfully'],201);
      */
     public function destroy(string $slug)
     {
-         $result=Category::where('slug',$slug)->firstOrfail();
-        if($result){
+        $result = Category::where('slug', $slug)->firstOrfail();
+        if ($result) {
             $result->delete();
-return response()->json(['message'=>'category is deleted successfully'],200);
-        }
-        else{
-            return response()->json(['message' => 'category not found'],404);
+            return response()->json(['message' => 'category is deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'category not found'], 404);
         }
     }
 }

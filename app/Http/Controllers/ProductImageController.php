@@ -28,7 +28,7 @@ class ProductImageController
      */
     public function store(Request $request)
     {
-        $request->validate([
+      $validate=  $request->validate([
     'product_id' => 'required|integer|exists:products,id',
     'image_path' => 'required|string|max:255',
     'alt_text'   => 'nullable|string|max:255',
@@ -64,7 +64,7 @@ return response()->json(['message'=>'productimage is created successfully'],201)
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
+        $validate= $request->validate([
     'product_id' => 'nullable|integer|exists:products,id',
     'image_path' => 'nullable|string|max:255',
     'alt_text'   => 'nullable|string|max:255',

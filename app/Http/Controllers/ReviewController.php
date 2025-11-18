@@ -28,7 +28,7 @@ class ReviewController
      */
     public function store(Request $request)
     {
-        $request->validate([
+      $validate=  $request->validate([
     'user_id'    => 'required|integer|exists:users,id',
     'product_id' => 'required|integer|exists:products,id',
     'rating'     => 'required|integer|min:1|max:5',
@@ -66,7 +66,7 @@ return response()->json(['message'=>'review is created successfully'],201);
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
+        $validate= $request->validate([
     'user_id'    => 'nullable|integer|exists:users,id',
     'product_id' => 'nullable|integer|exists:products,id',
     'rating'     => 'nullable|integer|min:1|max:5',
