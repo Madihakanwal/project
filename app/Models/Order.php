@@ -21,13 +21,17 @@ class Order extends Model
     protected $casts = [
         'user_id'             => 'integer',
         'order_number'        => 'integer',
-        'total_amount'        => 'float',
-        'discount'            => 'float',
-        'shipping_cost'       => 'float',
+
+        // monetary values
+        'total_amount'        => 'decimal:2',
+        'discount'            => 'decimal:2',
+        'shipping_cost'       => 'decimal:2',
+
         'shipping_address_id' => 'integer',
         'payment_status'      => 'string',
         'order_status'        => 'string',
         'payment_method'      => 'string',
+
         'created_at'          => 'datetime',
         'updated_at'          => 'datetime',
     ];
