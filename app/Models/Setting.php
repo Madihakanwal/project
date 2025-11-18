@@ -8,6 +8,13 @@ class Setting extends Model
 {
     protected $fillable = [
         'key',
-        'value'
+        'value',
+    ];
+
+    protected $casts = [
+        'key'        => 'string',
+        'value'      => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 }
